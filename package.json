@@ -1,0 +1,20 @@
+{
+  "name": "graphicengine",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/Main.ts",
+  "scripts": {
+    "start": "tsc && node ./dist/Main.js"
+  },
+  "author": "brunodev09",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^12.7.2",
+    "clear": "^0.1.0",
+    "clui": "^0.3.6",
+    "figlet": "^1.2.4",
+    "inquirer": "^7.0.1",
+    "touch": "^3.1.0",
+    "typescript": "^3.4.1"
+  }
+}

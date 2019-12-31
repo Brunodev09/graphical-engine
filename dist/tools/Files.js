@@ -1,0 +1,57 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const fs = require('fs');
+const path = require('path');
+const touch = require('touch');
+class Files {
+}
+exports.default = Files;
+Files.getDir = () => {
+    return path.basename(process.cwd());
+};
+Files.isDir = async (filePath) => {
+    try {
+        return await fs.existsSync(filePath);
+    }
+    catch (e) {
+        throw e;
+    }
+};
+Files.createDir = async (path) => {
+    try {
+        return await fs.mkdirSync(path);
+    }
+    catch (e) {
+        throw e;
+    }
+};
+Files.touch = async (path, fileName, buffer) => {
+    try {
+        return await fs.writeFileSync(`${path}/${fileName}`, buffer);
+    }
+    catch (e) {
+        throw e;
+    }
+};
+Files.read = async (path) => {
+    try {
+        let contents = await fs.readFileSync(path, 'utf8');
+        return contents;
+    }
+    catch (e) {
+        throw e;
+    }
+};
+Files.readDir = async (filePath) => {
+    if (!filePath)
+        return null;
+    try {
+        return await fs.readdirSync(filePath);
+        // return await path.basename(path.dirname(fs.realpathSync(__filename)));
+    }
+    catch (e) {
+        throw e;
+    }
+};
+;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiRmlsZXMuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi9zcmMvdG9vbHMvRmlsZXMudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQSxNQUFNLEVBQUUsR0FBRyxPQUFPLENBQUMsSUFBSSxDQUFDLENBQUM7QUFDekIsTUFBTSxJQUFJLEdBQUcsT0FBTyxDQUFDLE1BQU0sQ0FBQyxDQUFDO0FBQzdCLE1BQU0sS0FBSyxHQUFHLE9BQU8sQ0FBQyxPQUFPLENBQUMsQ0FBQztBQUUvQixNQUFxQixLQUFLOztBQUExQix3QkFnREM7QUEvQ1UsWUFBTSxHQUFHLEdBQVcsRUFBRTtJQUN6QixPQUFPLElBQUksQ0FBQyxRQUFRLENBQUMsT0FBTyxDQUFDLEdBQUcsRUFBRSxDQUFDLENBQUM7QUFDeEMsQ0FBQyxDQUFBO0FBRU0sV0FBSyxHQUFHLEtBQUssRUFBRSxRQUFRLEVBQW9CLEVBQUU7SUFDaEQsSUFBSTtRQUNBLE9BQU8sTUFBTSxFQUFFLENBQUMsVUFBVSxDQUFDLFFBQVEsQ0FBQyxDQUFDO0tBRXhDO0lBQUMsT0FBTyxDQUFDLEVBQUU7UUFDUixNQUFNLENBQUMsQ0FBQztLQUNYO0FBQ0wsQ0FBQyxDQUFBO0FBRU0sZUFBUyxHQUFHLEtBQUssRUFBRSxJQUFJLEVBQUUsRUFBRTtJQUM5QixJQUFJO1FBQ0EsT0FBTyxNQUFNLEVBQUUsQ0FBQyxTQUFTLENBQUMsSUFBSSxDQUFDLENBQUM7S0FDbkM7SUFBQyxPQUFPLENBQUMsRUFBRTtRQUNSLE1BQU0sQ0FBQyxDQUFDO0tBQ1g7QUFDTCxDQUFDLENBQUE7QUFFTSxXQUFLLEdBQUcsS0FBSyxFQUFFLElBQVksRUFBRSxRQUFnQixFQUFFLE1BQWMsRUFBRSxFQUFFO0lBQ3BFLElBQUk7UUFDQSxPQUFPLE1BQU0sRUFBRSxDQUFDLGFBQWEsQ0FBQyxHQUFHLElBQUksSUFBSSxRQUFRLEVBQUUsRUFBRSxNQUFNLENBQUMsQ0FBQztLQUNoRTtJQUFDLE9BQU8sQ0FBQyxFQUFFO1FBQ1IsTUFBTSxDQUFDLENBQUM7S0FDWDtBQUNMLENBQUMsQ0FBQTtBQUVNLFVBQUksR0FBRyxLQUFLLEVBQUUsSUFBWSxFQUFnQixFQUFFO0lBQy9DLElBQUk7UUFDQSxJQUFJLFFBQVEsR0FBRyxNQUFNLEVBQUUsQ0FBQyxZQUFZLENBQUMsSUFBSSxFQUFFLE1BQU0sQ0FBQyxDQUFDO1FBQ25ELE9BQU8sUUFBUSxDQUFDO0tBQ25CO0lBQUMsT0FBTyxDQUFDLEVBQUU7UUFDUixNQUFNLENBQUMsQ0FBQztLQUNYO0FBQ0wsQ0FBQyxDQUFBO0FBRU0sYUFBTyxHQUFHLEtBQUssRUFBRSxRQUFRLEVBQXFCLEVBQUU7SUFDbkQsSUFBSSxDQUFDLFFBQVE7UUFBRSxPQUFPLElBQUksQ0FBQztJQUMzQixJQUFJO1FBQ0EsT0FBTyxNQUFNLEVBQUUsQ0FBQyxXQUFXLENBQUMsUUFBUSxDQUFDLENBQUM7UUFDdEMseUVBQXlFO0tBQzVFO0lBQUMsT0FBTyxDQUFDLEVBQUU7UUFDUixNQUFNLENBQUMsQ0FBQztLQUNYO0FBQ0wsQ0FBQyxDQUFBO0FBQ0osQ0FBQyJ9
