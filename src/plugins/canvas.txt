@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>TITLE_HERE</title>
+    <!-- INCLUDES_ABOVE -->
+
+</head>
+
+<body>
+    <canvas id="CANVAS_ID" width="WIDTH_HERE" height="HEIGHT_HERE"></canvas>
+</body>
+
+</html>

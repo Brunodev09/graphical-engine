@@ -13,7 +13,7 @@ export class Question {
     name: string;
     message: string;
     validate?: functionInstance;
-    constructor(type, name, message, validate) {
+    constructor(type="input", name="any", message, validate) {
         this.type = type;
         this.name = name;
         this.message = message;
