@@ -7,6 +7,7 @@ const inquirer = require('inquirer');
 
 const CLI = require('clui');
 const Spinner = CLI.Spinner;
+let count = 0;
 
 class Terminal {
     defaultColor: Color;
@@ -47,6 +48,10 @@ class Terminal {
         return await inquirer.prompt(questions);
     }
 
+    static __counter() {
+        count++;
+    }
+
     loading(text: string) {
         this.spinner = new Spinner(text);
     }
@@ -61,4 +66,4 @@ class Terminal {
 
 };
 
-export default new Terminal();
+export default Terminal;

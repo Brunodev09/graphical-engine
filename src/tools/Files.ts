@@ -32,6 +32,18 @@ export default class Files {
         }
     }
 
+    static edit = async (path: string, buffer: string[]) => {
+        try {
+            // Flag 'a' to preserve old data.
+            const stream = fs.createWriteStream(path, { flags: 'a' });
+            buffer.forEach((item, index) => {
+                stream.write(item);
+            });
+        } catch (e) {
+            throw e;
+        }
+    }
+
     static read = async (path: string): Promise<any> => {
         try {
             let contents = await fs.readFileSync(path, 'utf8');
