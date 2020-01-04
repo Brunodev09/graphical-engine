@@ -1,27 +1,24 @@
 {
     "compilerOptions": {
-      "resolveJsonModule": true,
+    //   "resolveJsonModule": true,
       "experimentalDecorators": true,
       "emitDecoratorMetadata": true,
       "esModuleInterop": true,
       "inlineSourceMap": true,
-      "target": "es2017",
+      "target": "ES5",
       "outDir": "./dist",
-      "module": "commonjs",
-      "baseUrl": "./src",
+      "module": "none",
+      "baseUrl": "./",
       "typeRoots": [
-        "node_modules/@types"
       ]
     },
     "types": [
-      "node",
       "reflect-metadata"
     ],
     "include": [
-      "src/**/*.ts"
+      "./**/*.ts"
     ],
     "exclude": [
       "node_modules",
-      "src/lib/plugins/bdv-engine"
     ]
   }

@@ -17,7 +17,9 @@ export default class Main {
         if (await this.IOhandler.init()) {
             if (await this.IOhandler.setupQuestions()) {
                 if (await this.IOhandler.HTMLSetup()) {
-                    
+                    if (await this.IOhandler.commandLoop()) {
+                        
+                    }
                 }
             }
         }

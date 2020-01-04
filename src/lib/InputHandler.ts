@@ -14,12 +14,14 @@ export default class InputHandler {
     __profiles: string;
     __targetDir: string;
     __canvas: string;
+    __engine: string;
     __foundSaveFile: boolean;
 
     constructor() {
         this.__info = new Map();
         this.__profiles = __dirname + "/plugins/profile.cfg";
         this.__canvas = __dirname + "/plugins/canvas.cfg";
+        this.__engine = __dirname + "/plugins/bdv-engine/bdv.js";
         this.__targetDir = process.env.INIT_CWD || process.cwd();
         this.__foundSaveFile = false;
     }
@@ -58,7 +60,8 @@ export default class InputHandler {
 
                     let it = 0;
                     for (let option of aux) {
-                        this.__info.set(optionsKeys[it], option);
+                        aux[it] = option.replace(/"/, "");
+                        this.__info.set(optionsKeys[it], aux[it]);
                         it++;
                     }
                     this.out(3, [value]);
@@ -180,7 +183,8 @@ export default class InputHandler {
                 concat += each.value + "&";
                 c++;
             }
-            await Files.edit(this.__profiles, `USER="${username}"CFG="${concat}"`.split(""));
+
+            await Files.edit(this.__profiles, `USER="${username}"CFG="${concat}",`.split(""));
         }
         
         return true;
@@ -188,8 +192,42 @@ export default class InputHandler {
 
     async HTMLSetup(): Promise<boolean> {
         this.out(4, []);
+
         let data = await Files.read(this.__canvas);
-        // console.log(data);
+        let engineFileData = await Files.read(this.__engine);
+
+        data = data.replace(/TITLE_HERE/, this.__info.get("title").value || this.__info.get("title"));
+        data = data.replace(/WIDTH_HERE/, this.__info.get("width").value || this.__info.get("width"));
+        data = data.replace(/HEIGHT_HERE/, this.__info.get("height").value || this.__info.get("height"));
+        data = data.replace(/SRC_HERE/, "src='./bdv/bdv.js'");
+
+        let root = false;
+        if ((this.__info.get("folder").value || this.__info.get("folder")) === ".") root = true;
+        
+        if (root) {
+            if (await Files.isDir(this.__targetDir + "/bdv")) {
+                this.out(5, ["/bdv", this.__targetDir]);
+                process.exit(1);
+            }
+            await Files.createDir(this.__targetDir + "/bdv");
+            await Files.touch(this.__targetDir, `${this.__info.get("title").value || this.__info.get("title")}.html`, data);
+            await Files.touch(this.__targetDir + "/bdv", "bdv.js", engineFileData);
+
+        } else {
+            if (await Files.isDir(this.__targetDir + this.__info.get("folder").value || this.__info.get("folder"))) {
+                this.out(5, [`${this.__info.get("folder").value || this.__info.get("folder")}`, this.__targetDir]);
+                process.exit(1);
+            }
+            await Files.createDir(this.__targetDir + `/${this.__info.get("folder").value || this.__info.get("folder")}`);
+            await Files.createDir(this.__targetDir + `/${this.__info.get("folder").value || this.__info.get("folder")}/bdv`);
+            await Files.touch(this.__targetDir + `/${this.__info.get("folder").value || this.__info.get("folder")}`, `/${this.__info.get("title").value || this.__info.get("title")}.html`, data);
+            await Files.touch(this.__targetDir + `/${this.__info.get("folder").value || this.__info.get("folder")}` + "/bdv", "bdv.js", engineFileData);
+        }
+
+        return true;
+    }
+
+    async commandLoop() : Promise<boolean> {
         return true;
     }
 
